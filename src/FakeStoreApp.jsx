@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios, { all } from "axios";
+import axios from "axios";
 import styles from './FakeStoreApp.module.css';
 
 function FakeStoreApp() {
@@ -54,6 +54,9 @@ function FakeStoreApp() {
           <div className={styles.targetProductContainer}>
 
             <img className={styles.modalImg} src={selectedProduct.image} alt={selectedProduct.title} />
+
+            <p className={styles.selectedProductTitle}>{selectedProduct.title}</p>
+            
             <p>Price: <strong>{`$${selectedProduct.price}`}</strong></p>
             <p>Category: <strong>{selectedProduct.category}</strong></p>
             <p>Rating: <strong>{selectedProduct.rating.rate}</strong></p>
@@ -134,8 +137,8 @@ function FakeStoreApp() {
       )}
 
       {loading && (
-        <div>
-          Loading...
+        <div className={styles.loaderWrapper}>
+          <div className={styles.loader}></div>
         </div>
       )}
 
