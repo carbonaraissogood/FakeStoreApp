@@ -9,10 +9,10 @@ function App() {
 
   return (
     <div>
-      {/* <FakeStoreApp></FakeStoreApp> */}
+      <FakeStoreApp></FakeStoreApp>
       {/* <LogInPage></LogInPage> */}
       {/* <SignUpPage></SignUpPage> */}
-      <AddToCart></AddToCart>
+      {/* <AddToCart></AddToCart> */}
     </div>
   );
 };
