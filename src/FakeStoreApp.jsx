@@ -14,29 +14,30 @@ function FakeStoreApp() {
   const url = 'https://fakestoreapi.com/products/';
   
   useEffect(() => {
+
+    async function getData() {
+      try {
+
+        const response = await axios.get(url);
+        console.log(`API Response: ${response.data}`);
+
+        setAllProducts(response.data);
+        setData(response.data);
+        setError(null);
+      } catch (error) {
+
+        setError({
+            status: 400,
+            message: `No exact match found.`
+        });
+
+        setData([]);
+      }
+      setLoading(false);
+    }
+
     getData();
   }, []);
-
-  async function getData() {
-    try {
-
-      const response = await axios.get(url);
-      console.log(`API Response: ${response.data}`);
-
-      setAllProducts(response.data);
-      setData(response.data);
-      setError(null);
-    } catch (error) {
-
-      setError({
-          status: 400,
-          message: `No exact match found.`
-      });
-
-      setData([]);
-    }
-    setLoading(false);
-  }
 
   function handleClickContainer(id) {
      const targetProduct = data.find((product) => product.id === id);
