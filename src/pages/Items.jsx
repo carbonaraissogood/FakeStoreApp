@@ -6,8 +6,10 @@ import axios from "axios";
 const Items = ({ search, setSearch, handleClickContainer, searchResults, cart = { products: [] }, cartQuantity, setCartQuantity, error, isLoading, generateSelectedProductModal, selectedProduct, setSelectedProduct, setCart }) => {
 
   useEffect(() => {
+    // Defensive check: ensure cart.products is an array and filter out invalid items
+    const validProducts = Array.isArray(cart.products) ? cart.products.filter(p => p && typeof p.quantity === 'number') : [];
 
-    const totalItems = cart.products.reduce((acc, item) => acc + item.quantity, 0);
+    const totalItems = validProducts.reduce((acc, item) => acc + item.quantity, 0);
 
     setCartQuantity(totalItems);
     
@@ -17,22 +19,29 @@ const Items = ({ search, setSearch, handleClickContainer, searchResults, cart = 
     const today = new Date().toISOString().split('T')[0];
     const cartId = 1;
 
+    // Defensive check for cart.products
+    const currentProducts = Array.isArray(cart.products) ? cart.products.filter(p => p) : [];
+
     // Check if product already exists in cart
-    const existingProductIndex = cart.products.findIndex(p => p.productId === product.id);
+    const existingProductIndex = currentProducts.findIndex(p => p.productId === product.id);
     let updatedProducts;
 
     if (existingProductIndex !== -1) {
       // Increment quantity of existing product
-      updatedProducts = cart.products.map((product, index) => {
+      updatedProducts = currentProducts.map((product, index) => {
         if (index === existingProductIndex) {
-          return { ...product, quantity: product.quantity + 1 };
+          if (product.quantity === 5) {
+            alert('Item is limited only up to 5 in quantity');
+            return product;
+          };
+          return { ...product, quantity: product.quantity + 1};
         }
         return product;
       });
     } else {
       // Add new product to cart
       const newProduct = { productId: product.id, quantity: 1 };
-      updatedProducts = [...(cart.products || []), newProduct];
+      updatedProducts = [...currentProducts, newProduct];
     }
 
     const payload = {
@@ -43,7 +52,10 @@ const Items = ({ search, setSearch, handleClickContainer, searchResults, cart = 
 
     try {
       const response = await axios.put(`https://fakestoreapi.com/carts/${cartId}`, payload);
+
       console.log('Cart updated:', response.data);
+
+      //Nagpapakita pa rin to kahit na ay limit na sa quantity
       alert(`Added "${product.title}" to cart.`);
 
       // Update local cart state
@@ -51,8 +63,6 @@ const Items = ({ search, setSearch, handleClickContainer, searchResults, cart = 
         ...prev,
         products: updatedProducts
       }));
-
-      console.log(updatedProducts);
 
       // Update cart quantity
       const totalItems = updatedProducts.reduce((acc, item) => acc + item.quantity, 0);
@@ -94,10 +104,9 @@ const Items = ({ search, setSearch, handleClickContainer, searchResults, cart = 
       
           {searchResults.map((filteredProduct) => (
             
-            <div className={styles.perProductContainer}>
+            <div className={styles.perProductContainer} key={filteredProduct.id}>
               <div
-                onClick={() => handleClickContainer(filteredProduct.id)}
-                key={filteredProduct.id}>
+                onClick={() => handleClickContainer(filteredProduct.id)}>
 
                 <img className={styles.img} src={filteredProduct.image} alt={filteredProduct.title} />
 
