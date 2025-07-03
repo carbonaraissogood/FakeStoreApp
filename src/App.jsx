@@ -38,7 +38,6 @@ function App() {
     const getData = async () => {
       try {
         const response = await axios.get(`${url}${reqType}`);
-        console.log(`API Response: ${response.data}`);
 
         setData(response.data);
         setSearchResults(response.data);
@@ -206,6 +205,7 @@ function App() {
           data={data}
           cartQuantity={cartQuantity}
           setCartQuantity={setCartQuantity}
+          setCart={setCart}
           error={error}
           isLoading={isLoading}
         />} />
