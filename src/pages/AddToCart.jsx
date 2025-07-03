@@ -1,28 +1,60 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
-import axios from "axios";
 
+const AddToCart = ({ cart = { products: [] }, cartQuantity, setCartQuantity, setCart, data, error, isLoading }) => {
 
-const AddToCart = ({ cart = { products: [] }, setCartQuantity, data, error, isLoading }) => {
-  const location = useLocation();
-  const cartQuantity = location.state?.cartQuantity ?? 0;
-
-  // Change itemQuantity to an object keyed by productId
   const [itemQuantities, setItemQuantities] = useState({});
 
+  const updateCartQuantities = (updatedProducts) => {
+    // Update cart quantity
+    const totalItems = updatedProducts.reduce((acc, item) => acc + item.quantity, 0);
+    setCartQuantity(totalItems);
+  };
+
   const handleQuantityChange = (productId, event) => {
+
+    if (Number(event.target.value) < 1) return;
+
+    if (Number(event.target.value) > 5) {
+      alert('Item is limited only up to 5 in quantity');
+      return;
+    };
+
+    const newQuantity = Number(event.target.value);
+
     setItemQuantities(prev => ({
       ...prev,
-      [productId]: event.target.value
+      [productId]: newQuantity
     }));
 
-    // setCartQuantity();
+    const updatedProducts = cart.products.map(product => {
+      if (product.productId === productId) {
+        return { ...product, quantity: newQuantity };
+      }
+      return product;
+    });
+
+    setCart(prev => ({
+      ...prev,
+      products: updatedProducts
+    }));
+
+    // Update cart quantity after editing quantity
+    updateCartQuantities(updatedProducts);
   }
 
-  const handleDeleteItem = (id) => {
-    axios
-          .delete(`https://fakestoreapi.com/carts/${id}`)
-          .then(response => console.log(response.data));
+  const handleDeleteItem = (productId) => {
+    const updatedProducts = cart.products.filter((product) => (
+      product.productId !== productId
+    ))
+
+    setCart(prev => ({
+        ...prev,
+        products: updatedProducts
+      })
+    );
+
+    // Update cart quantity after deletion
+    updateCartQuantities(updatedProducts);
   }
 
   return (
@@ -47,17 +79,15 @@ const AddToCart = ({ cart = { products: [] }, setCartQuantity, data, error, isLo
         </thead>
         <tbody>
           {!error && !isLoading && cart && (cart.products || []).map((item) => (
-            <tr className="cartTR" key={item.id}>
+            <tr className="cartTR" key={item.productId}>
               <td>{item.productId}</td>
               <td>
                 {data.find((product) =>
-                  (product.id === item.productId)).title
-                }
+                  (product.id === item.productId))?.title || 'Unknown Product'}
               </td>
               <td>
                 {data.find((product) =>
-                  (product.id === item.productId)).price
-                }
+                  (product.id === item.productId))?.price || 0}
               </td>
 
               <td>
@@ -72,7 +102,7 @@ const AddToCart = ({ cart = { products: [] }, setCartQuantity, data, error, isLo
 
               <td>
                 <button
-                  onClick={() => handleDeleteItem(item.id)}
+                  onClick={() => handleDeleteItem(item.productId)}
                 >Delete</button>
               </td>
             </tr>
