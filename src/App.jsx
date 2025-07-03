@@ -1,19 +1,231 @@
-import AddToCart from './AddToCart';
-import './App.css'
-import FakeStoreApp from './FakeStoreApp';
-import LogInPage from './LogInPage';
-import SignUpPage from './SignUpPage';
+import Header from './pages/Header';
+import SignUp from './pages/SignUp';
+import LogIn from './pages/LogIn';
+import Home from './pages/Home';
+import AddToCart from './pages/AddToCart';
+import Checkout from './pages/Checkout';
+import About from './pages/About';
+import Missing from './pages/Missing';
+import Footer from './pages/Footer';
+import LandingPage from './pages/LandingPage';
+import Items from './pages/Items';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Nav from './pages/Nav';
+import { useState, useEffect } from 'react';
+import styles from './FakeStoreApp.module.css';
+import axios from 'axios';
 
 function App() {
-  
+  const [search, setSearch] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
+  const baseURL = 'https://fakestoreapi.com/';
+  const url = 'https://fakestoreapi.com/products/'
+
+  const [reqType, setReqType] = useState('');
+  const [data, setData] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [cart, setCart] = useState({});
+  const [id, setId] = useState('1');
+  const [cartQuantity, setCartQuantity] = useState(0);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+
+  useEffect(() => {
+
+    const getData = async () => {
+      try {
+        const response = await axios.get(`${url}${reqType}`);
+        console.log(`API Response: ${response.data}`);
+
+        setData(response.data);
+        setSearchResults(response.data);
+        setError(null);
+
+      } catch (error) {
+
+        setError({
+          status: 400,
+          message: `No exact match found.`
+        });
+
+        setData([]);
+      }
+      setIsLoading(false);
+    }
+
+    getData();
+  }, []);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const response = await axios.get(`${url}categories`);
+
+        setCategories(response.data);
+        setError(null);
+      } catch (err) {
+        
+        setError({
+          status: 400,
+          message: `No categories found.`
+        });
+
+        setCategories([]);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    getCategories();
+  }, [])
+
+  useEffect(() => {
+    const filteredResults = data.filter((product) => {
+      // If search matches exactly with a category, only show that category
+      if (categories.includes(search.toLowerCase())) {
+        return product.category.toLowerCase() === search.toLowerCase();
+      }
+      // Otherwise do a general search
+      return (
+        product.title.toLowerCase().includes(search.toLowerCase()) ||
+        product.description.toLowerCase().includes(search.toLowerCase()) ||
+        product.category.toLowerCase().includes(search.toLowerCase())
+      )
+    });
+
+    setSearchResults(filteredResults);
+  }, [search])
+
+  useEffect(() => {
+    const getCart = async () => {
+      try {
+        const response = await axios.get(`${baseURL}carts/${id}`);
+
+        setCart(response.data);
+        setError(null);
+
+      } catch (err) {
+        
+        setError({
+          status: 400,
+          message: `No cart found.`
+        });
+
+        setCart({});
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    getCart();
+  }, [id])
+
+  const handleClickContainer = (selectedProductID) => {
+    const targetProduct = data.find((product) => product.id === selectedProductID);
+
+    setSelectedProduct(targetProduct);
+  }
+
+  function generateSelectedProductModal(selectedProduct, onClose) {
+    return (
+      <div className={styles.modalOverlay}>
+        <div className={styles.modalBox}>
+
+          <button className={styles.closeButton} onClick={onClose}>&times;</button>
+
+          <div className={styles.targetProductContainer}>
+
+            <img className={styles.modalImg} src={selectedProduct.image} alt={selectedProduct.title} />
+
+            <p className={styles.selectedProductTitle}>{selectedProduct.title}</p>
+            
+            <p>Price: <strong>{`$${selectedProduct.price}`}</strong></p>
+            <p>Category: <strong>{selectedProduct.category}</strong></p>
+            <p>Rating: <strong>{selectedProduct.rating?.rate || 'N/A'}</strong></p>
+
+            <p className={styles.description}>Description: {selectedProduct.description}</p>
+            <p>Available Stock: <strong>{selectedProduct.rating?.count || 'n/a'}</strong></p>
+            
+            <button>Buy</button>
+            <button>Add to Cart</button>
+
+          </div>
+
+        </div>
+      </div>
+    );
+  }
+  
   return (
-    <div>
-      <FakeStoreApp></FakeStoreApp>
-      {/* <LogInPage></LogInPage> */}
-      {/* <SignUpPage></SignUpPage> */}
-      {/* <AddToCart></AddToCart> */}
-    </div>
+    <BrowserRouter>
+      <Header title='Grand Bazaar'></Header>
+      <Nav></Nav>
+
+      <Routes>
+
+        <Route 
+          index element={
+          <Home 
+            image='src\assets\morning walk.jpg'
+            categories={categories}
+            setSearch={setSearch}
+            search={search}
+            error={error}
+            isLoading={isLoading}
+          />}
+        />
+
+        <Route exact path="/" element={<LandingPage />} />
+        <Route exact path="/signup" element={<SignUp />} />
+        <Route exact path="/login" element={<LogIn />} />
+
+        <Route exact path="/items" element={
+          <Items 
+            search={search}
+            setSearch={setSearch}
+            products={data}
+            searchResults={searchResults}
+            handleClickContainer={handleClickContainer}
+            cart={cart}
+            setCart={setCart}
+            cartQuantity={cartQuantity}
+            setCartQuantity={setCartQuantity}
+            error={error}
+            isLoading={isLoading}
+            generateSelectedProductModal={generateSelectedProductModal}
+            selectedProduct={selectedProduct}
+            setSelectedProduct={setSelectedProduct}
+          />}
+        />
+
+        <Route exact path="/addToCart" element={<AddToCart
+          cart={cart}
+          data={data}
+          cartQuantity={cartQuantity}
+          setCartQuantity={setCartQuantity}
+          error={error}
+          isLoading={isLoading}
+        />} />
+        
+        <Route
+          exact path="/checkout/:productID"
+        
+          element={<Checkout
+            data={data}
+          />}
+
+        />
+
+        <Route exact path="/about" element={<About />} />
+        <Route exact path="*" element={<Missing />} />
+
+      </Routes>
+      
+      <Footer></Footer>
+    </BrowserRouter>
   );
 };
 
