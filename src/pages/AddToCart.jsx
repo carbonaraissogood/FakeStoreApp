@@ -1,8 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
+import OrderSummary from "./OrderSummary";
 const AddToCart = ({ cart = { products: [] }, cartQuantity, setCartQuantity, setCart, data, error, isLoading, cartId }) => {
 
   const [itemQuantities, setItemQuantities] = useState({});
+  let totalPrice = 0;
 
   const updateCartQuantities = (updatedProducts) => {
     // Update cart quantity
@@ -69,66 +71,84 @@ const AddToCart = ({ cart = { products: [] }, cartQuantity, setCartQuantity, set
     setCartQuantity(0);
   }
 
+  const handleGrandTotal = (productId, itemQuantity) => {
+    totalPrice = totalPrice + data.find((product) => product.id === productId).price * (itemQuantities[productId] || itemQuantity);
+  } 
+
   return (
-    <main className="cart">
+    <>
+      <main className="cart">
 
-      {error && <p>{error.message}</p>}
+        {error && <p>{error.message}</p>}
 
-      {isLoading && <p>Loading</p>}
+        {isLoading && <p>Loading</p>}
 
-      <h2>Total Items in Cart: {cartQuantity}</h2>
+        <h2>Total Items in Cart: {cartQuantity}</h2>
 
-      <button
-        onClick={() => handleDeleteAll(cartId)}
-      >
-        Delete All
-      </button>
-      
-      <table>
-        <thead>
-          <tr>
-            <th>Added Items</th>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {!error && !isLoading && cart && (cart.products || []).map((item) => (
-            <tr className="cartTR" key={item.productId}>
-              <td>{item.productId}</td>
-              <td>
-                {data.find((product) =>
-                  (product.id === item.productId))?.title || 'Unknown Product'}
-              </td>
-              <td>
-                {data.find((product) =>
-                  (product.id === item.productId))?.price || 0}
-              </td>
-
-              <td>
-                <input 
-                  type="number" 
-                  value={itemQuantities[item.productId] || item.quantity}
-                  onChange={(event) => handleQuantityChange(item.productId, event)}
-                />
-              </td>
-
-              <td>{data.find((product) => product.id === item.productId).price * (itemQuantities[item.productId] || item.quantity)}</td>
-
-              <td>
-                <button
-                  onClick={() => handleDeleteItem(item.productId)}
-                >Delete</button>
-              </td>
+        <button
+          onClick={() => handleDeleteAll(cartId)}
+        >
+          Delete All
+        </button>
+        
+        <table>
+          <thead>
+            <tr>
+              {/* <th></th> */}
+              <th>Title</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {!error && !isLoading && cart && (cart.products || []).map((item) => (
+              <tr className="cartTR" key={item.productId}>
+                {/* <td>{item.productId}</td> */}
 
-    </main>
+                {/* <td>
+                  <input
+                    type="checkbox"
+                    id="" />
+                </td> */}
+
+                <td>
+                  {data.find((product) =>
+                    (product.id === item.productId))?.title || 'Unknown Product'}
+                </td>
+                <td>
+                  {data.find((product) =>
+                    (product.id === item.productId))?.price || 0}
+                </td>
+
+                <td>
+                  <input 
+                    type="number" 
+                    value={itemQuantities[item.productId] || item.quantity}
+                    onChange={(event) => handleQuantityChange(item.productId, event)}
+                  />
+                </td>
+
+                <td>{data.find((product) => product.id === item.productId).price * (itemQuantities[item.productId] || item.quantity)}</td>
+
+                {handleGrandTotal(item.productId, item.quantity)}
+
+                <td>
+                  <button
+                    onClick={() => handleDeleteItem(item.productId)}
+                  >Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </main>
+
+      <OrderSummary
+        totalPrice={totalPrice}
+      ></OrderSummary>
+    </>
   );
 };
 
