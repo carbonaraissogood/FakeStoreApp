@@ -1,6 +1,6 @@
 import { useState } from "react";
-
-const AddToCart = ({ cart = { products: [] }, cartQuantity, setCartQuantity, setCart, data, error, isLoading }) => {
+import axios from "axios";
+const AddToCart = ({ cart = { products: [] }, cartQuantity, setCartQuantity, setCart, data, error, isLoading, cartId }) => {
 
   const [itemQuantities, setItemQuantities] = useState({});
 
@@ -43,6 +43,9 @@ const AddToCart = ({ cart = { products: [] }, cartQuantity, setCartQuantity, set
   }
 
   const handleDeleteItem = (productId) => {
+
+    //Dito dapat yung request sa API for deletion
+
     const updatedProducts = cart.products.filter((product) => (
       product.productId !== productId
     ))
@@ -57,6 +60,15 @@ const AddToCart = ({ cart = { products: [] }, cartQuantity, setCartQuantity, set
     updateCartQuantities(updatedProducts);
   }
 
+  const handleDeleteAll = (cartId) => {
+    axios
+          .delete(`https://fakestoreapi.com/carts/${cartId}`)
+          .then(response => console.log(response.data));
+
+    setCart({});
+    setCartQuantity(0);
+  }
+
   return (
     <main className="cart">
 
@@ -65,6 +77,12 @@ const AddToCart = ({ cart = { products: [] }, cartQuantity, setCartQuantity, set
       {isLoading && <p>Loading</p>}
 
       <h2>Total Items in Cart: {cartQuantity}</h2>
+
+      <button
+        onClick={() => handleDeleteAll(cartId)}
+      >
+        Delete All
+      </button>
       
       <table>
         <thead>
