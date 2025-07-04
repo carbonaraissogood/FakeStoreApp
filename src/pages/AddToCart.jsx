@@ -1,10 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
 import OrderSummary from "./OrderSummary";
+import { useNavigate } from "react-router-dom";
+
 const AddToCart = ({ cart = { products: [] }, cartQuantity, setCartQuantity, setCart, data, error, isLoading, cartId }) => {
 
   const [itemQuantities, setItemQuantities] = useState({});
   let totalPrice = 0;
+  const navigate = useNavigate();
 
   const updateCartQuantities = (updatedProducts) => {
     // Update cart quantity
@@ -69,6 +72,7 @@ const AddToCart = ({ cart = { products: [] }, cartQuantity, setCartQuantity, set
 
     setCart({});
     setCartQuantity(0);
+    // navigate("/items");
   }
 
   const handleGrandTotal = (productId, itemQuantity) => {
@@ -146,7 +150,10 @@ const AddToCart = ({ cart = { products: [] }, cartQuantity, setCartQuantity, set
       </main>
 
       <OrderSummary
+        cart={cart}
         totalPrice={totalPrice}
+        setCart={setCart}
+        setCartQuantity={setCartQuantity}
       ></OrderSummary>
     </>
   );
