@@ -55,8 +55,8 @@ const Items = ({ search, setSearch, handleClickContainer, searchResults, cart = 
 
       console.log('Cart updated:', response.data);
 
-      //Nagpapakita pa rin to kahit na ay limit na sa quantity
-      alert(`Added "${product.title}" to cart.`);
+      //Nagpapakita pa rin to kahit na na-limit na sa quantity
+      // alert(`Added "${product.title}" to cart.`);
 
       // Update local cart state
       setCart(prev => ({
