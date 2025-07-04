@@ -28,10 +28,29 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [cart, setCart] = useState({});
-  const [id, setId] = useState('1');
+  const [cartId, setCartId] = useState('1');
   const [cartQuantity, setCartQuantity] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const response = await axios.get('https://fakestoreapi.com/users');
+        const users = response.data;
+
+        setUsers(users);
+      } catch(err) {
+        console.log("ERROR");
+        setError(err);
+        setUsers([]);
+      }
+    }
+
+    getUsers()
+
+  }, [])
 
   useEffect(() => {
 
@@ -101,7 +120,7 @@ function App() {
   useEffect(() => {
     const getCart = async () => {
       try {
-        const response = await axios.get(`${baseURL}carts/${id}`);
+        const response = await axios.get(`${baseURL}carts/${cartId}`);
 
         setCart(response.data);
         setError(null);
@@ -120,7 +139,7 @@ function App() {
     }
 
     getCart();
-  }, [id])
+  }, [cartId])
 
   const handleClickContainer = (selectedProductID) => {
     const targetProduct = data.find((product) => product.id === selectedProductID);
@@ -178,8 +197,18 @@ function App() {
         />
 
         <Route exact path="/" element={<LandingPage />} />
-        <Route exact path="/signup" element={<SignUp />} />
-        <Route exact path="/login" element={<LogIn />} />
+
+        <Route exact path="/signup" element={
+          <SignUp
+            users={users}
+            setUsers={setUsers}
+          />} 
+        />
+        <Route exact path="/login" element={
+          <LogIn
+            users={users}
+          />}
+        />
 
         <Route exact path="/items" element={
           <Items 
@@ -208,6 +237,7 @@ function App() {
           setCart={setCart}
           error={error}
           isLoading={isLoading}
+          cartId={cartId}
         />} />
         
         <Route
