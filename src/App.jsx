@@ -1,17 +1,19 @@
-import Header from './pages/Header';
-import SignUp from './pages/SignUp';
-import LogIn from './pages/LogIn';
-import Home from './pages/Home';
-import AddToCart from './pages/AddToCart';
-import Checkout from './pages/Checkout';
-import About from './pages/About';
-import Missing from './pages/Missing';
-import Footer from './pages/Footer';
-import LandingPage from './pages/LandingPage';
-import Items from './pages/Items';
+import Header from './pages/Header/Header';
+import SignUp from './pages/Sign up/SignUp';
+import LogIn from './pages/Login/LogIn';
+import Home from './pages/Home/Home';
+import Cart from './pages/Checkout/Cart';
+import Checkout from './pages/Checkout/Checkout';
+import About from './pages/About/About';
+import Missing from './pages/Missing/Missing';
+import Footer from './pages/Footer/Footer';
+import LandingPage from './pages/Landing Page/LandingPage';
+import Items from './pages/Items/Items';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Nav from './pages/Nav';
 import { useState, useEffect } from 'react';
+import Shop from './pages/Shop/Shop';
+import CartPage from './pages/Checkout/CartPage';
+
 import styles from './FakeStoreApp.module.css';
 import axios from 'axios';
 
@@ -33,6 +35,8 @@ function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const [users, setUsers] = useState([]);
+
+  const [hasAccount, setHasAccount] = useState(false);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -180,7 +184,7 @@ function App() {
   return (
     <BrowserRouter>
       <Header title='Grand Bazaar'></Header>
-      <Nav></Nav>
+      {/* <Nav></Nav> */}
 
       <Routes>
 
@@ -188,9 +192,6 @@ function App() {
           index element={
           <Home 
             image='src\assets\morning walk.jpg'
-            categories={categories}
-            setSearch={setSearch}
-            search={search}
             error={error}
             isLoading={isLoading}
           />}
@@ -207,6 +208,15 @@ function App() {
         <Route exact path="/login" element={
           <LogIn
             users={users}
+            setHasAccount={setHasAccount}
+          />}
+        />
+
+        <Route exact path="/shop" element={
+          <Shop 
+            search={search}
+            setSearch={setSearch}
+            categories={categories}
           />}
         />
 
@@ -226,10 +236,11 @@ function App() {
             generateSelectedProductModal={generateSelectedProductModal}
             selectedProduct={selectedProduct}
             setSelectedProduct={setSelectedProduct}
+            hasAccount={hasAccount}
           />}
         />
 
-        <Route exact path="/addToCart" element={<AddToCart
+        <Route exact path="/addToCart" element={<Cart
           cart={cart}
           data={data}
           cartQuantity={cartQuantity}
@@ -246,8 +257,20 @@ function App() {
           element={<Checkout
             data={data}
           />}
-
         />
+
+        <Route path="/cart" element={
+          <CartPage
+            cart={cart}
+            setCart={setCart}
+            cartQuantity={cartQuantity}
+            setCartQuantity={setCartQuantity}
+            data={data}
+            error={error}
+            isLoading={isLoading}
+            cartId={cartId}
+          />
+        } />
 
         <Route exact path="/about" element={<About />} />
         <Route exact path="*" element={<Missing />} />
