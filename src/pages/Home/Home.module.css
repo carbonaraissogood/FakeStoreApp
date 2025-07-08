@@ -1,0 +1,16 @@
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageContainer img {
+  width: 1120px;
+  height: 536px; /* Example height */
+  padding: 10px;
+}
+
+.home {
+  padding-top: 60px; /* space for fixed header */
+  padding-bottom: 40px; /* space for fixed footer */
+}

@@ -1,0 +1,119 @@
+.container {
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.left {
+  flex: 1;
+  /* background-color: #f8f8f8; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.left img {
+  width: 550px;
+  height: 650px;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 4rem;
+}
+
+.right h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtext {
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: #ffffff;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form input[type="text"],
+.form input[type="password"] {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.flexRow {
+  display: flex;
+  justify-content: left;
+  font-size: 0.9rem;
+}
+
+.flexRow a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+button[type="submit"] {
+  background-color: #111;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #333;
+}
+
+.footerText {
+  display: flex;
+  justify-content: left;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #000000;
+}
+
+.footerText a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.footerText .link {
+  margin-left: 4px; /* or 0.25rem, etc. */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .left, .right {
+    flex: none;
+    width: 100%;
+    padding: 2rem;
+  }
+
+  .right {
+    padding: 2rem 1.5rem;
+  }
+}

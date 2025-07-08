@@ -1,4 +1,14 @@
-#root {
+body {
+  background-color: #939ac0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* #root {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -26,7 +36,7 @@
 .footerContainer {
   display: flex;
   flex-direction: row;
-  justify-content: center; /* add this line */
+  justify-content: center;
 
   background-color: rgb(217, 255, 180);
 }
@@ -42,8 +52,8 @@
 .navBar {
   display: flex;
   flex-direction: row;
-  justify-content: center; /* add this line */
-  gap: 140px; /* adjust the gap value as needed */
+  justify-content: center;
+  gap: 140px;
 
   background-color: rgb(217, 255, 180);
 }
@@ -99,4 +109,4 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
+} */

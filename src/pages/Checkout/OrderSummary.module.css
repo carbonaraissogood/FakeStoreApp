@@ -1,0 +1,91 @@
+.orderContainer {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 2rem;
+  background-color: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.orderContainer h2 {
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.orderContainer p {
+  font-size: 1.1rem;
+  color: #444;
+  margin: 0.5rem 0;
+}
+
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.radioOption {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.orderButton,
+.confirmButton,
+.cancelButton {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.orderButton {
+  background-color: #1976d2;
+  color: white;
+}
+
+.orderButton:hover {
+  background-color: #1565c0;
+}
+
+.confirmButton {
+  background-color: #4caf50;
+  color: white;
+}
+
+.confirmButton:hover {
+  background-color: #388e3c;
+}
+
+.cancelButton {
+  background-color: #f44336;
+  color: white;
+}
+
+.cancelButton:hover {
+  background-color: #d32f2f;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+  .orderContainer {
+    padding: 1rem;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+  }
+}
