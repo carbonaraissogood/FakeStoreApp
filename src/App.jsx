@@ -191,7 +191,7 @@ function App() {
         <Route 
           index element={
           <Home 
-            image='src\assets\morning walk.jpg'
+            image='https://specials-images.forbesimg.com/imageserve/638a98b6a088e5ce47202972/Girls-carrying-shopping-bags/960x0.jpg?fit=scale'
             error={error}
             isLoading={isLoading}
           />}
