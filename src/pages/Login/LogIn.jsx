@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from './LogIn.module.css'; // Link to external CSS
+import styles from './Login.module.css'; // Link to external CSS
 
 const LogIn = ({ users, setHasAccount }) => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
