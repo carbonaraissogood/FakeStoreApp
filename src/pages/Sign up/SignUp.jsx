@@ -28,57 +28,78 @@ const SignUp = ({ users, setUsers }) => {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.left}>
-        {/* <p className={styles.logo}>3legant.</p> */}
+    <div className={styles.flexContainer}>
+      <div className={styles.leftContainer}>
         <img
           src="src\pages\Sign up\Sign Up.png" 
           alt="chair"
         />
       </div>
 
-      <div className={styles.right}>
-        <h2>Sign up</h2>
-        <p className={styles.subtext}>Already have an account? <a href="/login">Sign in</a></p>
+      <div className={styles.rightContainer}>
 
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Your name"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            required
-          />
-          <input
-            type="email"
-            placeholder="Email address"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-          />
+        <div className={styles.title}>
+          <h2>Sign up</h2>
+          <p className={styles.subtext}>Already have an account? <a href="/login">Sign in</a></p>
+        </div>
 
-          <div className={styles.checkboxRow}>
-            <input type="checkbox" id="terms" required />
-            <label htmlFor="terms">
-              I agree with <a href="#">Privacy Policy</a> and <a href="#">Terms of Use</a>
-            </label>
-          </div>
+        <div className={styles.form}>
+          <form onSubmit={handleSubmit}>
 
-          <button type="submit">Sign Up</button>
-        </form>
+            <div className={styles.inputFields}>
+              <div className={styles.fieldItem}>
+                <input
+                  type="text"
+                  placeholder="Your name"
+                  required
+                />
+              </div>
+
+              <div className={styles.fieldItem}>
+                <input
+                  type="text"
+                  placeholder="Username"
+                  value={username}
+                  onChange={e => setUsername(e.target.value)}
+                  required
+                />
+              </div>
+              
+              <div className={styles.fieldItem}>
+                <input
+                  type="email"
+                  placeholder="Email address"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className={styles.fieldItem}>
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+              
+              <div className={styles.checkboxRow}>
+                <input type="checkbox" id="terms" required />
+                <label htmlFor="terms">
+                  I agree with <a href="#">Privacy Policy</a> and <a href="#">Terms of Use</a>
+                </label>
+              </div>
+
+            </div>
+
+            <button type="submit">Sign Up</button>
+          </form>
+        </div>
+
       </div>
+
     </div>
   );
 };
