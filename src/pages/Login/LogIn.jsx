@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from './Login.module.css'; // Link to external CSS
+import styles from './Login.module.css';
 
 const LogIn = ({ users, setHasAccount }) => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
@@ -27,47 +27,73 @@ const LogIn = ({ users, setHasAccount }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.left}>
-        <p className={styles.logo}>Logo</p>
-        <img
-          src="src\pages\Sign up\Sign Up.png"
-          alt="login"
-        />
-      </div>
 
-      <div className={styles.right}>
-        <h2>Welcome Back!</h2>
-        <p className={styles.subtext}>Please enter your details</p>
+      <div className={styles.flexContainer}>
 
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Username or Email"
-            value={usernameOrEmail}
-            onChange={(e) => setUsernameOrEmail(e.target.value)}
-            required
+        <div className={styles.leftContainer}>
+          <img
+            src="src\pages\Sign up\Sign Up.png" 
+            alt="chair"
           />
+        </div>
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+        <div className={styles.rightContainer}>
 
-          <div className={styles.flexRow}>
-            <a href="#">Forgot Password?</a>
+          <div className={styles.title}>
+            <h2>Sign In</h2>
+            <p className={styles.footerText}>
+              Don’t have an account?
+              <a className={styles.link} href="/signup"> Sign up</a>
+            </p>
           </div>
 
-          <button type="submit">Login</button>
-        </form>
+          <div className={styles.form}>
+            <form onSubmit={handleSubmit}>
 
-        <p className={styles.footerText}>
-          Don’t have an account?
-          <a className={styles.link} href="/signup">Sign up</a>
-        </p>
+              <div className={styles.inputFields}>
+                
+                <div className={styles.fieldItem}>
+                  <input
+                    type="text"
+                    placeholder="Username or Email"
+                    value={usernameOrEmail}
+                    onChange={(e) => setUsernameOrEmail(e.target.value)}
+                    required
+                  />
+                </div>
 
+                <div className={styles.fieldItem}>
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className={styles.tickBox}>
+
+                  <div className={styles.checkboxRow}>
+                    <input type="checkbox" id="terms" required />
+                    <label htmlFor="terms">
+                      Remember me
+                    </label>
+                  </div>
+
+                  <div className={styles.forgotPassword}>
+                    <a href="#">Forgot Password?</a>
+                  </div>
+                  
+                </div>
+
+              </div>
+
+              <button type="submit">Login</button>
+
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   );
