@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { Link } from 'react-router-dom';
-import styles from '../../FakeStoreApp.module.css';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import styles from "./Items.module.css";
 
 const Items = ({ search, setSearch, handleClickContainer, searchResults, cart = { products: [] }, cartQuantity, setCartQuantity, error, isLoading, generateSelectedProductModal, selectedProduct, setSelectedProduct, setCart, hasAccount }) => {
 
