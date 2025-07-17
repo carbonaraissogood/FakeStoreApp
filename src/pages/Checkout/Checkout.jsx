@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import styles from '../../FakeStoreApp.module.css';
 import { useEffect, useState } from 'react';
 
 const Checkout = ({ data }) => {
