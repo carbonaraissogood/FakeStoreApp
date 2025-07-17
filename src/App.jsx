@@ -14,7 +14,7 @@ import { useState, useEffect } from 'react';
 import Shop from './pages/Shop/Shop';
 import CartPage from './pages/Checkout/CartPage';
 
-import styles from './FakeStoreApp.module.css';
+import styles from "./App.module.css";
 import axios from 'axios';
 
 function App() {
@@ -277,7 +277,7 @@ function App() {
 
       </Routes>
       
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </BrowserRouter>
   );
 };
