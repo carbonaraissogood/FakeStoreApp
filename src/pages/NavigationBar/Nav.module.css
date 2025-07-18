@@ -5,6 +5,7 @@
   font-weight: 500;
   color: #343739;
 
+  width: 100vw;
   height: 40px;
   background-color: #F3F5F7;
 
@@ -57,6 +58,8 @@
   margin-left: 160px;
   font-size: 24px;
   cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .navBar .linkGroup {
