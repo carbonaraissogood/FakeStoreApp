@@ -239,8 +239,8 @@ const Home = ({ error, isLoading }) => {
               <img src="src\pages\Home\money.svg" alt="shipping" />
             </div>
             
-            <p className={styles.title}>Free Shipping</p>
-            <p className={styles.subtitle}>Order above $200</p>
+            <p className={styles.title}>Money-back</p>
+            <p className={styles.subtitle}>30 days guarantee</p>
           </div>
 
           <div className={styles.securePayments}>
@@ -249,8 +249,8 @@ const Home = ({ error, isLoading }) => {
               <img src="src\pages\Home\Vector.svg" alt="shipping" />
             </div>
             
-            <p className={styles.title}>Free Shipping</p>
-            <p className={styles.subtitle}>Order above $200</p>
+            <p className={styles.title}>Secure Payments</p>
+            <p className={styles.subtitle}>Secured by Stripe</p>
           </div>
 
           <div className={styles.support}>
@@ -259,10 +259,61 @@ const Home = ({ error, isLoading }) => {
               <img src="src\pages\Home\fast delivery.svg" alt="shipping" />
             </div>
             
-            <p className={styles.title}>Free Shipping</p>
-            <p className={styles.subtitle}>Order above $200</p>
+            <p className={styles.title}>24/7 Support</p>
+            <p className={styles.subtitle}>Phone and Email support</p>
           </div>
 
+        </div>
+
+        <div className={styles.banner}>
+
+          <div className={styles.bannerImgContainer}>
+            <img src="src\pages\Home\Image Placeholder.svg" alt="" />
+          </div>
+
+          <div className={styles.details}>
+            <div className={styles.text}>
+              <p className={styles.saleText}>SALE UP TO 35% OFF</p>
+              <div className={styles.main}>
+                <p>HUNDREDS of</p>
+                <p>New lower prices!</p>
+              </div>
+              <p className={styles.body}>It’s more affordable than ever to give every room in your home a stylish makeover</p>
+            </div>
+
+            <div  className={styles.link}>
+              <a href="">
+                <div className={styles.title}>Shop Now</div>
+                <img src="src\pages\Home\arrow-right.svg" alt="arrow-right" />
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <div className={styles.newsletter}>
+          <img className={styles.newsImg} src="src\pages\Home\Image Placeholder (1).svg" alt="newsletter" />
+          
+          <div className={styles.details}>
+            <div className={styles.header}>
+              <p className={styles.main}>Join Our Newsletter</p>
+              <p className={styles}>Sign up for deals, new products and promotions</p>
+            </div>
+
+            <div className={styles.emailContainer}>
+              <div className={styles.email}>
+                <img src="src\pages\Home\email.svg" alt="email icon" />
+              </div>
+              
+              <input
+                type="email"
+                placeholder='Email address'
+              />
+
+              <button>Signup</button>
+            </div>
+
+          </div>
         </div>
 
 
