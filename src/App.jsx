@@ -277,7 +277,7 @@ function App() {
 
       </Routes>
       
-      {/* <Footer></Footer> */}
+      <Footer></Footer>
     </BrowserRouter>
   );
 };
