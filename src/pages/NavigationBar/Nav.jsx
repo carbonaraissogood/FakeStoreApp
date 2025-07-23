@@ -3,7 +3,7 @@ import styles from './Nav.module.css'
 
 const Nav = ({ title }) => {
   return (
-    <nav>
+    <nav className={styles.navBarContainer}>
 
       <div className={styles.notificationBarContainer}>
 
@@ -71,6 +71,7 @@ const Nav = ({ title }) => {
 
 
       </div>
+
     </nav>
   )
 }
