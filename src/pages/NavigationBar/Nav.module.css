@@ -1,3 +1,9 @@
+.navBarContainer {
+  position: fixed;
+  background-color: white;
+  z-index: 100;
+}
+
 .notificationBarContainer {
   display: flex;
   flex-direction: row;
