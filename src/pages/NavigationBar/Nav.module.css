@@ -2,6 +2,7 @@
   position: fixed;
   background-color: white;
   z-index: 100;
+  width: 100%;
 }
 
 .notificationBarContainer {
@@ -119,4 +120,3 @@
   background-color: rgb(0, 0, 0);
   border-radius: 50%;
 }
-
