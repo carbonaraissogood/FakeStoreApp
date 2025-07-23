@@ -1,0 +1,80 @@
+.footerContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 0 160px 0 160px;
+  color: white;
+  background-color: black;
+  padding-top: 80px;
+  padding-bottom: 32px;
+}
+
+.topContainer,
+.leftSide,
+.rightSide {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.leftSide {
+  column-gap: 32px;
+  align-items: center;
+  margin-bottom: 49px;
+}
+
+.leftSide .name {
+  font-size: 24px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.leftSide .line {
+  font-size: 24px;
+  color: #6C6D75;
+}
+
+.leftSide .shopCategory {
+  font-size: 14px;
+  color: #E8ECEF;
+}
+
+.rightSide {
+  column-gap: 40px;
+}
+
+.rightSide p {
+  cursor: pointer;
+}
+
+.bottomContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-top: 1px solid #6C6D75;
+}
+
+.bottomContainer .leftSide,
+.bottomContainer .rightSide {
+  display: flex;
+  margin: 0;
+}
+
+.bottomContainer .leftSide {
+  font-size: 12px;
+  display: flex;
+  flex-direction: row;
+  column-gap: 28px;
+}
+
+.bottomContainer .leftSide .privPolicy,
+.bottomContainer .leftSide .terms {
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.bottomContainer .rightSide button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
