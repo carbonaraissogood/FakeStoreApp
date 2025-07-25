@@ -40,10 +40,6 @@ const Nav = ({ title }) => {
           </div>
 
           <div className={styles.link}>
-            <Link className={styles.linkName} to="/items">Product</Link>
-          </div>
-
-          <div className={styles.link}>
             <Link className={styles.linkName} to="/about">Contact Us</Link>
           </div>
 
