@@ -89,58 +89,90 @@ const Items = ({ search, setSearch, handleClickContainer, searchResults, cart = 
 
       {isLoading && <p>Loading</p>}
 
-      <Link 
+      {/* <Link 
         to="/addToCart" 
         state={{ cartQuantity: cartQuantity }} replace
       >
         <button className='cartButton'>CART: {cartQuantity}</button>
-      </Link>
-
-      <form onSubmit={(e) => e.preventDefault()}>
-
-        <input
-          id='search'
-          type="text"
-          placeholder='Search items'
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-
-      </form>
+      </Link> */}
 
       {!error && !isLoading && searchResults && (
         <div className={styles.productContainer}>
-      
-          {searchResults.map((filteredProduct) => (
+
+          <div className={styles.header}>
             
-            <div className={styles.perProductContainer} key={filteredProduct.id}>
-              <div
-                onClick={() => handleClickContainer(filteredProduct.id)}>
-
-                <img className={styles.img} src={filteredProduct.image} alt={filteredProduct.title} />
-
-                <div className={styles.productDetails}>
-                  <p className={styles.productTitle}>{filteredProduct.title}</p>
-                  <h3><strong>{`$${filteredProduct.price}`}</strong></h3>
-                  <p className={styles.rating}>Rating: {filteredProduct.rating.rate}</p>
-                  <p className={styles.category}>Category: <strong>{filteredProduct.category}</strong></p>
-                </div>
-
-                <br />
-              </div>
-
-              <Link to={`/checkout/${filteredProduct.id}`}>
-                <button>Buy</button>
-              </Link>
-
-              <button
-                onClick={() => handleAddToCart(filteredProduct)}>
-                  Add to Cart
-              </button>
-              
+            <div className={styles.leftSide}>
+              <form onSubmit={(e) => e.preventDefault()}>
+                <input
+                  id='search'
+                  type="text"
+                  placeholder='Search items'
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </form>
             </div>
 
-          ))}
+            <div className={styles.rightSide}>
+
+              <div className={styles.sortBy}>
+                <p>Sort by</p>
+                <img src="src\pages\Items\chevron-down.svg" alt="dropdown icon" />
+              </div>
+
+              <div className={styles.gridStylesContainer}>
+                <button className={styles.gridStyle}><img src="src\pages\Items\bi_grid-3x3-gap-fill.svg" alt="3x3 grid" /></button>
+                <button><img src="src\pages\Items\fluent_grid-24-filled.svg" alt="2x2 grid" /></button>
+              </div>
+              
+            </div>
+            
+          </div>
+
+          <div className={styles.productListing}>
+            {searchResults.map((filteredProduct) => (
+            
+              <div className={styles.perProductContainer} key={filteredProduct.id}>
+
+                <div className={styles.productImgContainer}>
+                  <img src={filteredProduct.image} alt={filteredProduct.title} />
+
+                  <div className={styles.tag}>NEW</div>
+                                  
+                  <button className={styles.wishButton}><img src="src\pages\Items\Shape.svg" alt="heart" /></button>
+  
+                  <button className={styles.addToCartButton}>Add to cart</button>
+
+                </div>
+
+                <div className={styles.productDetails}>
+
+                  <p className={styles.rating}>Rating: {filteredProduct.rating.rate}</p>
+
+                  <p className={styles.productTitle}>
+                    {filteredProduct.title}
+                  </p>
+
+                  <p className={styles.price}>
+                    {`$${filteredProduct.price}`}
+                  </p>
+
+                </div>
+
+                {/* <Link to={`/checkout/${filteredProduct.id}`}>
+                  <button>Buy</button>
+                </Link>
+
+                <button
+                  onClick={() => handleAddToCart(filteredProduct)}>
+                    Add to Cart
+                </button> */}
+                
+              </div>
+
+            ))}
+          </div>
+      
         </div>
       )}
 
