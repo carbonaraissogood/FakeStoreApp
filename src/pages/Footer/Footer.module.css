@@ -6,6 +6,8 @@
   background-color: black;
   padding-top: 80px;
   padding-bottom: 32px;
+  position: relative;
+  bottom: 0;
 }
 
 .topContainer,
