@@ -8,11 +8,11 @@ import About from './pages/About/About';
 import Missing from './pages/Missing/Missing';
 import Footer from './pages/Footer/Footer';
 import LandingPage from './pages/Landing Page/LandingPage';
-import Items from './pages/Items/Items';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Shop from './pages/Shop/Shop';
 import CartPage from './pages/Checkout/CartPage';
+import Items from './pages/Items/Items';
 
 import styles from "./App.module.css";
 import axios from 'axios';
@@ -213,14 +213,29 @@ function App() {
         />
 
         <Route exact path="/shop" element={
-          <Shop 
+          <Shop
+            data={data}
             search={search}
             setSearch={setSearch}
+            setSearchResults={setSearchResults}
             categories={categories}
+            products={data}
+            searchResults={searchResults}
+            handleClickContainer={handleClickContainer}
+            cart={cart}
+            setCart={setCart}
+            cartQuantity={cartQuantity}
+            setCartQuantity={setCartQuantity}
+            error={error}
+            isLoading={isLoading}
+            generateSelectedProductModal={generateSelectedProductModal}
+            selectedProduct={selectedProduct}
+            setSelectedProduct={setSelectedProduct}
+            hasAccount={hasAccount}
           />}
         />
 
-        <Route exact path="/items" element={
+        {/* <Route exact path="/items" element={
           <Items 
             search={search}
             setSearch={setSearch}
@@ -238,7 +253,7 @@ function App() {
             setSelectedProduct={setSelectedProduct}
             hasAccount={hasAccount}
           />}
-        />
+        /> */}
 
         <Route exact path="/addToCart" element={<Cart
           cart={cart}
